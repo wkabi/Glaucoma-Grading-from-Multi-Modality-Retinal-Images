@@ -1,7 +1,7 @@
 # Glaucoma-Grading-from-Multi-Modality-Retinal-Data
 This repository will help you to train, validate and test Multimodal AI model for Glaucoma Grading using retinal fundus and OCT images by employing deep learning (DL) methodology. 
 
-Notes: 
+Important Notes: 
 - This repository is not for commercial use/purpose. 
 - It can be used for research purpose (only).
 - If you utilize this repository that will lead to any publication, please cite this repository.
