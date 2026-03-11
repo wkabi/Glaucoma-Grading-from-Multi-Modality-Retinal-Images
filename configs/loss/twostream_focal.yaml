@@ -1,0 +1,10 @@
+name: twostream_focal
+alpha: 0.1
+temp: 1.0
+focal_gamma: 2.0
+
+object:
+  _target_: optic.modeling.TwostreamFocalLoss
+  alpha: ${loss.alpha}
+  temp: ${loss.temp}
+  focal_gamma: ${loss.focal_gamma}

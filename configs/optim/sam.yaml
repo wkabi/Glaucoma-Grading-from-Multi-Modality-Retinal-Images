@@ -1,0 +1,13 @@
+name: sam
+lr: 0.01
+momentum: 0.9
+weight_decay: 1e-4
+
+object:
+  _target_: optic.modeling.SAM
+  base_optimizer: torch.optim.SGD
+  lr: ${optim.lr}
+  momentum: ${optim.momentum}
+  weight_decay: ${optim.weight_decay}
+  adaptive: True
+  rho: 0.5

@@ -1,0 +1,71 @@
+name: fundus-oct-${data.train_split}
+data_root: /home/bliu/work/Code/Optic/data/GAMMA_training_data/training_data
+batch_size: 4
+number_workers: 8
+oct_depth_resize: "zoom"
+oct_depth: 64
+train_split: train-f1
+val_split: val-f1
+test_split: val-f1
+train_mode: train
+val_mode: val
+test_mode: val
+
+object:
+  train:
+    _target_: optic.data.data_pipeline
+    dataset:
+      _target_: optic.data.FundusDatasetFolders
+      # Use absolute path for input to avoid messing with hydra output paths
+      data_root: ${data.data_root}
+      split: ${data.train_split}
+      mode: ${data.train_mode}
+      transformer:
+        _target_: optic.data.img_augment
+        is_train: True
+      oct_transformer:
+        _target_: optic.data.oct_augment
+        is_train: True
+      use_h5file: True
+      return_oct: True
+      oct_depth_resize: ${data.oct_depth_resize}
+      oct_depth: ${data.oct_depth}
+    batch_size: ${data.batch_size}
+    number_workers: ${data.number_workers}
+    shuffle: True
+
+  val:
+    _target_: optic.data.data_pipeline
+    dataset:
+      _target_: optic.data.FundusDatasetFolders
+      data_root: ${data.data_root}
+      split: ${data.val_split}
+      mode: ${data.val_mode}
+      # transformer:
+      #   _target_: optic.data.img_augment
+      #   is_train: False
+      # oct_transformer:
+      #   _target_: optic.data.oct_augment
+      #   is_train: False
+      use_h5file: True
+      return_oct: True
+      oct_depth_resize: ${data.oct_depth_resize}
+      oct_depth: ${data.oct_depth}
+    batch_size: 4
+    number_workers: ${data.number_workers}
+    shuffle: False
+
+  test:
+    _target_: optic.data.data_pipeline
+    dataset:
+      _target_: optic.data.FundusDatasetFolders
+      data_root: ${data.data_root}
+      split: ${data.test_split}
+      mode: ${data.test_mode}
+      use_h5file: True
+      return_oct: True
+      oct_depth_resize: ${data.oct_depth_resize}
+      oct_depth: ${data.oct_depth}
+    batch_size: 4
+    number_workers: ${data.number_workers}
+    shuffle: False

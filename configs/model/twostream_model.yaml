@@ -1,0 +1,29 @@
+name: twostream_model
+
+oct_model_name: resnet50
+oct_pretrained: True
+oct_model_checkpoint: ""
+img_model_name: resnet50
+img_model_checkpoint: ""
+
+num_classes: 3
+has_dropout: True
+has_batchnorm: True
+
+object:
+  _target_: optic.modeling.TwostreamModel
+  oct_model:
+    _target_: optic.modeling.build_resnet3d
+    encoder_name: ${model.oct_model_name}
+    num_classes: ${model.num_classes}
+    pretrained: ${model.oct_pretrained}
+    has_dropout: ${model.has_dropout}
+    has_batchnorm: ${model.has_batchnorm}
+  img_model:
+    _target_: optic.modeling.build_resnet
+    encoder_name: ${model.img_model_name}
+    num_classes:  ${model.num_classes}
+    pretrained: True
+    has_dropout: ${model.has_dropout}
+    has_batchnorm: ${model.has_batchnorm}
+  num_classes: ${model.num_classes}

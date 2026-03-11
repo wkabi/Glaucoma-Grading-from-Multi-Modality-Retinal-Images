@@ -1,0 +1,5 @@
+name: mse
+
+object:
+  _target_: torch.nn.MSELoss
+  reduction: mean

@@ -1,0 +1,33 @@
+name: multimodal
+
+oct_model_name: resnet34
+oct_shortcut_type: B
+oct_pretrained: True
+oct_model_checkpoint: ""
+img_model_name: resnet34
+img_pretrained: True
+img_model_checkpoint: ""
+
+num_classes: 3
+fuse_method: "cat"
+has_dropout: True
+
+object:
+  _target_: optic.modeling.MultimodalModel
+  oct_model:
+    _target_: optic.modeling.build_resnet3d
+    encoder_name: ${model.oct_model_name}
+    num_classes: ${model.num_classes}
+    pretrained: ${model.oct_pretrained}
+    has_dropout: ${model.has_dropout}
+    shortcut_type: ${model.oct_shortcut_type}
+  img_model:
+    _target_: optic.modeling.build_resnet
+    encoder_name: ${model.img_model_name}
+    num_classes:  ${model.num_classes}
+    pretrained: ${model.img_pretrained}
+    has_dropout: ${model.has_dropout}
+  num_classes: ${model.num_classes}
+  fuse_method: ${model.fuse_method}
+  has_dropout: ${model.has_dropout}
+  from_scratch: False

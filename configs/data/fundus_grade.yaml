@@ -1,0 +1,47 @@
+name: fundus
+object:
+  train:
+    _target_: optic.data.data_pipeline
+    dataset:
+      _target_: optic.data.FundusDataset
+      # Use absolute path for input to avoid messing with hydra output paths
+      data_root: ~/work/Code/Optic/data/GAMMA_training_data/training_data
+      mode: train
+      transformer:
+        _target_: optic.data.img_augment
+        is_train: True
+      oct_transformer:
+        _target_: optic.data.oct_augment
+        is_train: True
+      return_oct: True
+    batch_size: 4
+    number_workers: 4
+    shuffle: True
+
+  val:
+    _target_: optic.data.data_pipeline
+    dataset:
+      _target_: optic.data.FundusDataset
+      data_root: ~/work/Code/Optic/data/GAMMA_training_data/training_data
+      mode: val
+      transformer:
+        _target_: optic.data.img_augment
+        is_train: False
+      return_oct: True
+    batch_size: 4
+    number_workers: 4
+    shuffle: False
+
+  test:
+    _target_: optic.data.data_pipeline
+    dataset:
+      _target_: optic.data.FundusDataset
+      data_root: ~/work/Code/OpticSeg/data/GAMMA_training_data/training_data
+      mode: test
+      transformer:
+        _target_: optic.data.img_augment
+        is_train: False
+      return_oct: True
+    batch_size: 8
+    number_workers: 4
+    shuffle: False

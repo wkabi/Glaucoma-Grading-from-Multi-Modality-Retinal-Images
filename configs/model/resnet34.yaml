@@ -1,0 +1,14 @@
+name: resnet34
+encoder_name: resnet34
+num_classes: 3
+pretrained: True
+has_dropout: True
+has_batchnorm: True
+
+object:
+  _target_: optic.modeling.build_resnet
+  encoder_name: ${model.encoder_name}
+  num_classes: ${model.num_classes}
+  pretrained: ${model.pretrained}
+  has_dropout: ${model.has_dropout}
+  has_batchnorm: ${model.has_batchnorm}

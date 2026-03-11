@@ -1,0 +1,48 @@
+name: fundus-disc-img
+data_root: /home/bliu/work/Code/Optic/data/GAMMA_training_data/training_data
+batch_size: 32
+number_workers: 8
+train_mode: train
+val_mode: val
+test_mode: val
+
+object:
+  train:
+    _target_: optic.data.data_pipeline
+    dataset:
+      _target_: optic.data.FundusDataset
+      # Use absolute path for input to avoid messing with hydra output paths
+      data_root: ${data.data_root}
+      mode: ${data.train_mode}
+      transformer:
+        _target_: optic.data.img_augment
+        is_train: True
+      return_disc_image: True
+    batch_size: ${data.batch_size}
+    number_workers: ${data.number_workers}
+    shuffle: True
+
+  val:
+    _target_: optic.data.data_pipeline
+    dataset:
+      _target_: optic.data.FundusDataset
+      data_root: ${data.data_root}
+      mode: ${data.val_mode}
+      transformer:
+        _target_: optic.data.img_augment
+        is_train: False
+      return_disc_image: True
+    batch_size: ${data.batch_size}
+    number_workers: ${data.number_workers}
+    shuffle: False
+
+  test:
+    _target_: optic.data.data_pipeline
+    dataset:
+      _target_: optic.data.FundusDataset
+      data_root: ${data.data_root}
+      mode: ${data.test_mode}
+      return_disc_image: True
+    batch_size: 8
+    number_workers: ${data.number_workers}
+    shuffle: False

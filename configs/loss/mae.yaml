@@ -1,0 +1,5 @@
+name: mae
+
+object:
+  _target_: torch.nn.L1Loss
+  reduction: mean

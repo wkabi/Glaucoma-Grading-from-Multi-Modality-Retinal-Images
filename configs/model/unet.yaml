@@ -1,0 +1,7 @@
+name: r50unet
+object:
+  _target_: segmentation_models_pytorch.Unet
+  encoder_name: resnet50
+  encoder_weights: imagenet
+  in_channels: 3
+  classes: 3

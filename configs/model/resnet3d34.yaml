@@ -1,0 +1,12 @@
+name: resnet3d34
+encoder_name: resnet34
+num_classes: 3
+pretrained: False
+has_dropout: True
+
+object:
+  _target_: optic.modeling.build_resnet3d
+  encoder_name: ${model.encoder_name}
+  num_classes: ${model.num_classes}
+  pretrained: ${model.pretrained}
+  has_dropout: ${model.has_dropout}

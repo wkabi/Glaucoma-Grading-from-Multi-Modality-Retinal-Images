@@ -1,0 +1,6 @@
+name: mse_bce
+alpha: 0.1
+
+object:
+  _target_: optic.modeling.MseBCE
+  alpha: ${loss.alpha}

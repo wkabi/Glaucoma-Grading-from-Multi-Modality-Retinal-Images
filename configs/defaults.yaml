@@ -1,0 +1,49 @@
+hydra:
+  run:
+    dir: outputs/${data.name}/${model.name}-${loss.name}-${optim.name}/${now:%Y%m%d-%H:%M:%S-%f}
+
+exp: basline
+
+defaults:
+  - data: fundus_grade_img
+  - model: resnet50
+  - loss: ce
+  - optim: sgd
+  - scheduler: step
+  - wandb: my
+
+  - override hydra/job_logging: custom
+
+task: grade
+input_type: image
+
+device: cuda:0
+seed: 1
+log_period: 10
+train:
+  max_epoch: 100
+  resume: False
+  keep_checkpoint_num: 1
+  best_model_metric: ""
+test:
+  save_feature: ""
+  save_prediction: ""
+  visualize: False
+  checkpoint: ""
+  augment:
+    img:
+      method: resize_smallest
+      flip: False
+      crop_size: [224, 224]
+      resize_small_size: 256
+    oct:
+      method: resize_smallest
+      flip: False
+      crop_size: [224, 224]
+      resize_small_size: 256
+    reduce: mean
+wandb:
+  enable: True
+
+# outputs: outputs/${data.name}/${model.name}/${loss.name}/${now:%Y%m%d-%H%M%S-%f}
+

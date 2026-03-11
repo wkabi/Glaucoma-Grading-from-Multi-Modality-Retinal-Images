@@ -1,0 +1,6 @@
+name: ce+l1
+object:
+  _target_: optic.modeling.CrossEntropyWithL1
+  mode: multiclass
+  alpha: 0.1
+  temp: 10.

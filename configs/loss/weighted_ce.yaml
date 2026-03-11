@@ -1,0 +1,7 @@
+name: weighted_ce
+weight: [0.9, 1.0, 1.1]
+
+object:
+  _target_: optic.modeling.weighted_ce
+  reduction: mean
+  weight: ${loss.weight}
